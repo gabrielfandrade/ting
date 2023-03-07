@@ -28,4 +28,27 @@ def exists_word(word: str, instance: Queue):
 
 
 def search_by_word(word, instance):
-    """Aqui irá sua implementação"""
+    results = []
+
+    for file in instance._queue:
+        ocorrencias = []
+
+        for index, line in enumerate(file['linhas_do_arquivo']):
+            if word.casefold() in line.casefold():
+                line_dict = {
+                    'linha': index + 1,
+                    'conteudo': line
+                }
+
+                ocorrencias.append(line_dict)
+
+        if ocorrencias:
+            result = {
+                'palavra': word,
+                'arquivo': file['nome_do_arquivo'],
+                'ocorrencias': ocorrencias
+            }
+
+            results.append(result)
+
+    return results
