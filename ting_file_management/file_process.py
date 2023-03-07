@@ -3,7 +3,7 @@ from ting_file_management.file_management import txt_importer
 
 
 def process(path_file: str, instance: Queue):
-    if not any(_process['nome_do_arquivo'] == path_file for _process in instance._queue):
+    if not any(p['nome_do_arquivo'] == path_file for p in instance._queue):
         process_dict = dict()
 
         lines = txt_importer(path_file)
@@ -17,8 +17,15 @@ def process(path_file: str, instance: Queue):
         print(process_dict)
 
 
-def remove(instance):
-    """Aqui irá sua implementação"""
+def remove(instance: Queue):
+    if len(instance) > 0:
+        process = instance.dequeue()
+
+        path_file = process['nome_do_arquivo']
+
+        print(f'Arquivo {path_file} removido com sucesso')
+    else:
+        print('Não há elementos')
 
 
 def file_metadata(instance, position):
